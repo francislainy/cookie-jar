@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/cookie-jar/static/css/main.36eae1db.css",
+    "main.css": "/cookie-jar/static/css/main.3393422d.css",
     "main.js": "/cookie-jar/static/js/main.f3727cd2.js",
     "index.html": "/cookie-jar/index.html",
-    "main.36eae1db.css.map": "/cookie-jar/static/css/main.36eae1db.css.map",
+    "main.3393422d.css.map": "/cookie-jar/static/css/main.3393422d.css.map",
     "main.f3727cd2.js.map": "/cookie-jar/static/js/main.f3727cd2.js.map"
   },
   "entrypoints": [
-    "static/css/main.36eae1db.css",
+    "static/css/main.3393422d.css",
     "static/js/main.f3727cd2.js"
   ]
 }
