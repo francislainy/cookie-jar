@@ -14,18 +14,21 @@ function App() {
   const [editingIndex, setEditingIndex] = useState(null)
   const [editingText, setEditingText] = useState("")
 
-  // Load blessings from localStorage when the component mounts
   useEffect(() => {
     const savedBlessings = localStorage.getItem('cookieJarBlessings');
     if (savedBlessings) {
       try {
         const parsedBlessings = JSON.parse(savedBlessings);
         setBlessings(parsedBlessings);
+        if (parsedBlessings.length > 0) {
+          setIsJarOpen(true); // Open the lid if there are blessings
+        }
       } catch (error) {
         console.error("Error parsing blessings from localStorage:", error);
       }
     }
   }, []);
+
 
 // Save blessings to localStorage whenever the blessings array changes
   useEffect(() => {
@@ -61,8 +64,16 @@ function App() {
   }
 
   const handleDeleteBlessing = (index) => {
-    setBlessings(blessings.filter((_, i) => i !== index))
-  }
+    const updatedBlessings = blessings.filter((_, i) => i !== index);
+    setBlessings(updatedBlessings);
+
+    // Save the updated list to localStorage
+    localStorage.setItem('cookieJarBlessings', JSON.stringify(updatedBlessings));
+
+    if (updatedBlessings.length === 0) {
+      setIsJarOpen(false);
+    }
+  };
 
   return (
       <main className="app-container">
