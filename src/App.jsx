@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { CookieIcon } from "./components/CookieIcon"
 import { Trash2, Save, Edit } from "lucide-react" // Import icons from lucide-react
@@ -13,6 +13,26 @@ function App() {
   const [isAnimating, setIsAnimating] = useState(false)
   const [editingIndex, setEditingIndex] = useState(null)
   const [editingText, setEditingText] = useState("")
+
+  // Load blessings from localStorage when the component mounts
+  useEffect(() => {
+    const savedBlessings = localStorage.getItem('cookieJarBlessings');
+    if (savedBlessings) {
+      try {
+        const parsedBlessings = JSON.parse(savedBlessings);
+        setBlessings(parsedBlessings);
+      } catch (error) {
+        console.error("Error parsing blessings from localStorage:", error);
+      }
+    }
+  }, []);
+
+// Save blessings to localStorage whenever the blessings array changes
+  useEffect(() => {
+    if (blessings.length > 0) {
+      localStorage.setItem('cookieJarBlessings', JSON.stringify(blessings));
+    }
+  }, [blessings]);
 
   const handleAddBlessing = (e) => {
     e.preventDefault();
