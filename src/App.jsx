@@ -15,16 +15,17 @@ function App() {
   const [editingText, setEditingText] = useState("")
 
   const handleAddBlessing = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newBlessing.trim()) {
-      setIsAnimating(true)
+      setIsAnimating(true);
       setTimeout(() => {
-        setBlessings([...blessings, newBlessing])
-        setNewBlessing("")
-        setIsAnimating(false)
-      }, 1000)
+        setBlessings((prevBlessings) => [...prevBlessings, newBlessing]);
+        setNewBlessing("");
+        setIsAnimating(false);
+        setIsJarOpen(true); // Ensure the jar opens when a blessing is added
+      }, 1000);
     }
-  }
+  };
 
   const handleEditBlessing = (index) => {
     setEditingIndex(index)
