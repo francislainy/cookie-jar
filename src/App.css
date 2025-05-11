@@ -335,3 +335,101 @@ body {
 .blessing-item span {
   color: #92400e; /* amber-800 */
 }
+
+/* Add these styles to your existing CSS file */
+
+/* Icon button styles */
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.edit-button {
+  color: #92400e; /* amber-800 to match your color scheme */
+}
+
+.edit-button:hover {
+  color: #f59e0b; /* amber-500 */
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.delete-button {
+  color: #92400e; /* amber-800 */
+}
+
+.delete-button:hover {
+  color: #ef4444; /* red-500 */
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.save-button {
+  color: #f59e0b; /* amber-500 */
+}
+
+.save-button:hover {
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+/* Update blessing item styles to match your design */
+.blessing-item {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.blessing-item svg {
+  color: #d97706; /* amber-600 - keeping your original color */
+}
+
+.blessing-item span {
+  flex-grow: 1;
+  margin-left: 8px;
+  margin-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  color: #92400e; /* amber-800 - keeping your original color */
+}
+
+.blessing-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto; /* This pushes the action buttons to the right */
+}
+
+/* Edit container improvements */
+.edit-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-container input {
+  flex-grow: 1;
+}
+
+.edit-container input {
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 8px; /* Add some padding */
+  font-size: 14px; /* Adjust font size */
+  outline: none; /* Remove the default focus outline */
+  width: 100%; /* Make it responsive */
+  box-shadow: none; /* Remove any shadow */
+}
+
+.edit-container input:focus {
+  border-color: #007bff; /* Highlight border on focus */
+}

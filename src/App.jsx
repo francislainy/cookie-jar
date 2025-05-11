@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { CookieIcon } from "./components/CookieIcon"
+import { Trash2, Save, Edit } from "lucide-react" // Import icons from lucide-react
 import "./App.css"
 
 function App() {
@@ -10,18 +11,36 @@ function App() {
   const [newBlessing, setNewBlessing] = useState("")
   const [isJarOpen, setIsJarOpen] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [editingIndex, setEditingIndex] = useState(null)
+  const [editingText, setEditingText] = useState("")
 
   const handleAddBlessing = (e) => {
     e.preventDefault()
     if (newBlessing.trim()) {
       setIsAnimating(true)
-      // Add the blessing after the animation completes
       setTimeout(() => {
         setBlessings([...blessings, newBlessing])
         setNewBlessing("")
         setIsAnimating(false)
       }, 1000)
     }
+  }
+
+  const handleEditBlessing = (index) => {
+    setEditingIndex(index)
+    setEditingText(blessings[index])
+  }
+
+  const handleSaveEdit = () => {
+    const updatedBlessings = [...blessings]
+    updatedBlessings[editingIndex] = editingText
+    setBlessings(updatedBlessings)
+    setEditingIndex(null)
+    setEditingText("")
+  }
+
+  const handleDeleteBlessing = (index) => {
+    setBlessings(blessings.filter((_, i) => i !== index))
   }
 
   return (
@@ -33,7 +52,6 @@ function App() {
           </div>
 
           <div className="jar-container">
-            {/* Cookie being added animation */}
             <AnimatePresence>
               {isAnimating && (
                   <motion.div
@@ -50,36 +68,24 @@ function App() {
               )}
             </AnimatePresence>
 
-            {/* Cookie Jar Container */}
             <div className="cookie-jar" onClick={() => setIsJarOpen(!isJarOpen)}>
-              {/* Jar Body */}
               <div className="jar-body">
-                {/* Jar Neck */}
                 <div className="jar-neck"></div>
-
-                {/* Jar Body */}
                 <div className="jar-main">
-                  {/* Jar Contents (Cookies) */}
                   <div className="jar-contents">
-                    {/* Cookie Details */}
                     <div className="cookie-detail cookie-1"></div>
                     <div className="cookie-detail cookie-2"></div>
                     <div className="cookie-detail cookie-3"></div>
                     <div className="cookie-detail cookie-4"></div>
                     <div className="cookie-detail cookie-5"></div>
                   </div>
-
-                  {/* Jar Shine */}
                   <div className="jar-shine"></div>
                 </div>
-
-                {/* Cookie count indicator */}
                 <div className="blessing-counter">
                   {blessings.length} {blessings.length === 1 ? "blessing" : "blessings"}
                 </div>
               </div>
 
-              {/* Jar Lid */}
               <motion.div
                   className="jar-lid"
                   animate={{
@@ -90,12 +96,9 @@ function App() {
                   transition={{ type: "spring", stiffness: 100 }}
                   style={{ transformOrigin: "bottom right" }}
               >
-                {/* Lid Base */}
                 <div className="lid-base">
                   <div className="lid-top"></div>
                   <div className="lid-bottom"></div>
-
-                  {/* Lid Knob */}
                   <div className="lid-knob"></div>
                 </div>
               </motion.div>
@@ -118,7 +121,6 @@ function App() {
             </button>
           </form>
 
-          {/* Blessings Display */}
           <AnimatePresence>
             {isJarOpen && (
                 <motion.div
@@ -139,8 +141,43 @@ function App() {
                                   transition={{ delay: index * 0.1 }}
                                   className="blessing-item"
                               >
-                                <CookieIcon size={16} />
-                                <span>{blessing}</span>
+                                {editingIndex === index ? (
+                                    <div className="edit-container">
+                                      <input
+                                          value={editingText}
+                                          onChange={(e) => setEditingText(e.target.value)}
+                                          className="form-group input"
+                                      />
+                                      <button
+                                          onClick={handleSaveEdit}
+                                          className="icon-button save-button"
+                                          aria-label="Save"
+                                      >
+                                        <Save size={16} />
+                                      </button>
+                                    </div>
+                                ) : (
+                                    <>
+                                      <CookieIcon size={16} />
+                                      <span onClick={() => handleEditBlessing(index)}>{blessing}</span>
+                                      <div className="blessing-actions">
+                                        <button
+                                            onClick={() => handleEditBlessing(index)}
+                                            className="icon-button edit-button"
+                                            aria-label="Edit"
+                                        >
+                                          <Edit size={16} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteBlessing(index)}
+                                            className="icon-button delete-button"
+                                            aria-label="Delete"
+                                        >
+                                          <Trash2 size={16} />
+                                        </button>
+                                      </div>
+                                    </>
+                                )}
                               </motion.li>
                           ))}
                         </ul>
