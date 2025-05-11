@@ -433,3 +433,13 @@ body {
 .edit-container input:focus {
   border-color: #007bff; /* Highlight border on focus */
 }
+
+input {
+  font-size: 16px;
+}
+
+.blessing-form {
+  margin-top: 0;
+}
+
+
